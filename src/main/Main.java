@@ -1,5 +1,6 @@
 package src.main;
 import src.main.models.Game;
+import src.main.models.Team;
 
 public class Main {
 
@@ -7,8 +8,21 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Team home = new Team("GRYFFINDOR", "Oliver", "Harry", 
+        new String[] {"Angelina", "Ginny", "Katie"});
+      
+        Team away = new Team("SLYTHERIN", "Vincent",  "Draco", 
+        new String[] {"Bridget", "Harper", "Malcolm"});
+
+        Game game = new Game(home, away);
+
+        game.setScore(away, 28);
+        System.out.println(game.getScore(away));
+        System.out.println(game.getTeam("GRYFFINDOR"));
         
     }
+
+    
 
 
     /**
