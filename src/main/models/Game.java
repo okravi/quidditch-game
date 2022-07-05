@@ -2,10 +2,13 @@ package src.main.models;
 
 import java.util.HashMap;
 
+
 public class Game {
 
     private HashMap<Team, Integer> scoreboard;
     private static int gameCount;
+    private static final int QUAFFLE_POINTS = 10;
+    private static final int SNITCH_POINTS = 150;
 
     public Game(Team home, Team away){
         gameCount++;
@@ -32,6 +35,57 @@ public class Game {
 
     public static int getGameCount() {
         return gameCount;
+    }
+    public static int getQuafflePoints() {
+        return QUAFFLE_POINTS;
+    }
+
+    public String getPlaceHolder(String play) {
+
+        return play.substring(play.indexOf("<") + 1, 
+        play.indexOf(">"));
+    }
+
+    public String replacePlaceHolder(String string, 
+    String pHolder, String name) {
+        return string.replace("<" + pHolder + ">", name);
+    }
+
+    public void quaffleScore(Team team) {
+        this.setScore(team, this.getScore(team) + QUAFFLE_POINTS);
+    }
+
+    public void catchSnitch(Team team) {
+        this.setScore(team, this.getScore(team) + SNITCH_POINTS);
+    }
+
+    public String simulate(String play) {
+
+        String pHolder = this.getPlaceHolder(play);
+
+        Team team = getRandomTeam();
+
+        if (pHolder.equals(Team.getPositionChaser())){
+            quaffleScore(team);
+            String chaser = team.getChasers()[random(team.getChasers().length)];
+            return replacePlaceHolder(play, pHolder, chaser);
+        }else if (pHolder.equals(Team.getPositionSeeker())) {
+            catchSnitch(team);
+            return replacePlaceHolder(play, pHolder, team.getSeeker());
+        }else if (pHolder.equals(Team.getPositionKeeper())) {
+            return replacePlaceHolder(play, pHolder, team.getKeeper());
+        }else{
+            return "";
+        }
+    }
+
+    public Team getRandomTeam(){
+        Team[] tArr = (Team[]) this.scoreboard.keySet().toArray();
+        return tArr[random(tArr.length)];
+    }
+
+    public int random(int range){
+        return (int)Math.random()*range;
     }
 
 }
