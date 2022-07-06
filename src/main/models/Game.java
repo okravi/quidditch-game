@@ -21,7 +21,12 @@ public class Game {
         return this.scoreboard.get(team);
     }
 
-    public void setScore(Team team, Integer score){
+    public void setScore(Team team, Integer score) 
+    throws IllegalArgumentException{
+
+        if (score == null || team == null){
+            throw new IllegalArgumentException("Team and score can not be null");
+        }
         scoreboard.put(team, score);
     }
 
@@ -80,8 +85,8 @@ public class Game {
     }
 
     public Team getRandomTeam(){
-        Team[] tArr = (Team[]) this.scoreboard.keySet().toArray();
-        return tArr[random(tArr.length)];
+        Object[] tArr = this.scoreboard.keySet().toArray();
+        return (Team)tArr[random(tArr.length)];//[random(tArr.length)];
     }
 
     public int random(int range){

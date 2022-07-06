@@ -48,18 +48,11 @@ public class GameTest {
 
     @Test
     public void catchSnitchTest() {
-        
+
         Team team = testGame.getTeam("SLYTHERIN");
         testGame.catchSnitch(team);
 
         assertEquals(150, testGame.getScore(team));
     }
-
-
-
-
-
-
-
 
 }

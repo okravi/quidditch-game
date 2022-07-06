@@ -25,7 +25,8 @@ public class Team {
         ("Parameter can not be null or empty and there must be at least 3 chasers");
 
         if (hasNull(chasers) || hasBlank(chasers)) 
-        throw new IllegalArgumentException("Chasers can not be null or empty");
+        throw new IllegalArgumentException
+        ("Chasers can not be null or empty");
 
         this.house = house;
         this.keeper = keeper;
@@ -133,7 +134,5 @@ public class Team {
     @Override public int hashCode() {
         return Objects.hash(house, keeper, seeker, Arrays.toString(this.chasers));
     }
-
-
 
 }
